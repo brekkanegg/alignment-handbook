@@ -16,10 +16,11 @@ lora_target_modules:
 
 # Data training arguments
 dataset_mixer:
-  HuggingFaceH4/ultrachat_200k: 1.0
+  # HuggingFaceH4/ultrachat_200k: 1.0
+  HarpyChat/PIPPA_2048: 1
 dataset_splits:
-- train_sft
-- test_sft
+- train
+- test
 preprocessing_num_workers: 12
 
 # SFT trainer config
@@ -30,14 +31,14 @@ gradient_accumulation_steps: 128
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: false
-hub_model_id: zephyr-7b-sft-lora
+hub_model_id: zephyr-7b-sft-lora-pippa-2048
 hub_strategy: every_save
 learning_rate: 2.0e-05
 log_level: info
 logging_steps: 5  
 logging_strategy: steps
 lr_scheduler_type: cosine
-max_seq_length: 2048
+max_seq_length: 2048 #2048
 max_steps: -1
 num_train_epochs: 1
 output_dir: data/zephyr-7b-sft-lora
@@ -46,7 +47,7 @@ per_device_eval_batch_size: 8
 per_device_train_batch_size: 4
 push_to_hub: true
 report_to:
-- tensorboard
+- wandb #tensorboard
 save_strategy: "no"
 save_total_limit: null
 seed: 42
